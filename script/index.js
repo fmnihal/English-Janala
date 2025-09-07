@@ -32,15 +32,26 @@ const loadLevelWord=(id)=>{
 const displayLevelWord= (words)=>{
     // console.log(words);
     const wordContainer= document.getElementById('word-container');
-    wordContainer.innerHTML='';
+    wordContainer.innerHTML=``;
+    if (words.length==0){
+        // alert('no word found');
+        wordContainer.innerHTML=`
+        <div class="text-center col-span-full rounded-xl py-10 space-y-6 font-bn">
+            <img class="mx-auto" src="../assets/alert-error.png" />
+            <p>এই Lesson এ এখনো কোন Vocabulary যুক্ত করা হয়নি।</p>
+            <h2 class="font-bold text-4xl">নেক্সট Lesson এ যান</h2>
+        </div>
+        `;
+        return;
+    }
     words.forEach((word)=>{
         // console.log(word);
         const card= document.createElement('div');
         card.innerHTML=`
         <div class="bg-white rounded-xl shadow-sm text-center py-10 px-5 space-y-4">
-            <h2 class="text-2xl font-bold">Hesitate</h2>
+            <h2 class="text-2xl font-bold">${word.word? word.word : "word not found"}</h2>
             <p>Meaning/Pronunciation</p>
-            <h2 class="font-bn text-2xl font-bold">"দ্বিধা করা / হেজিটেট"</h2>
+            <h2 class="font-bn text-2xl font-bold">"${word.meaning? word.meaning : "meaning not found"} / ${word.pronunciation? word.pronunciation : "pronunciation not found"}"</h2>
             <div class="flex justify-between items-center">
                 <button class="btn-info bg-[#1A91FF10] hover:bg-[#1A91FF80]"><i class="fa-solid fa-circle-info"></i></button>
                 <button class="btn-speak bg-[#1A91FF10] hover:bg-[#1A91FF80]"><i class="fa-solid fa-volume-high"></i></button>
